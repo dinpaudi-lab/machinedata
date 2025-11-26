@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Layout Mesin Rapier</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      color: #fff;
+    }
+    
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.6s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .login-header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: contain;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    
+    .login-header p {
+      font-size: 18px;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      background: rgba(30, 41, 59, 0.8);
+      border-color: #ffd166;
+      box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.1);
+    }
+    
+    .form-group input::placeholder {
+      color: #64748b;
+    }
+    
+    .login-btn {
+      width: 100%;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #ffd166 0%, #ff6ec7 100%);
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 8px;
+    }
+    
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 209, 102, 0.3);
+    }
+    
+    .login-btn:active {
+      transform: translateY(0);
+    }
+    
+    .error-message {
+      display: none;
+      padding: 12px 16px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      color: #fca5a5;
+      font-size: 13px;
+      margin-bottom: 16px;
+      animation: slideInDown 0.3s ease-out;
+    }
+    
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .error-message.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <img src="https://cdnb.uns.ac.id/cdc/image/2022/03/tE6YvomIvLcTJTHcC8GB2acYc5Xv9W60.png" alt="Logo" />
+      <p>Layout Mesin Rapier</p>
+    </div>
+    
+    <div id="error-message" class="error-message"></div>
+    
+    <form id="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          placeholder="Masukkan username"
+          autocomplete="username"
+          required
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Sandi</label>
+        <input 
+          type="password" 
+          id="password" 
+          placeholder="Masukkan sandi"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+      
+      <button type="submit" class="login-btn">Masuk</button>
+    </form>
+  </div>
+  
+  <!-- Supabase Sync -->
+  <script src="supabase_sync.js"></script>
+  <script src="login_app.js"></script>
+</body>
+</html>
