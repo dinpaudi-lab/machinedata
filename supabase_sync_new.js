@@ -369,3 +369,58 @@ function getMachineBlockFromNumber(machineNum) {
   }
   return '?'
 }
+
+// ============ HISTORY - SAVE ============
+
+async function saveHistoryToCloud(historyEntry) {
+  if (!isCloudAvailable || !supabase) {
+    console.log('⚠️ Cloud not available for history save')
+    return false
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('history')
+      .insert([
+        {
+          timestamp: Date.now(),
+          type: historyEntry.type || 'general',
+          machine_id: historyEntry.machine_id || null,
+          construction_id: historyEntry.construction_id || null,
+          action: historyEntry.action || 'update',
+          details: historyEntry.details || {},
+          device_id: historyEntry.device_id || getDeviceId(),
+          device_name: historyEntry.device_name || getDeviceName(),
+          created_at: new Date().toISOString()
+        }
+      ])
+
+    if (error) throw error
+
+    console.log('✅ History saved to Supabase')
+    return true
+  } catch (e) {
+    console.error('❌ Save history to cloud error:', e.message)
+    return false
+  }
+}
+
+// Helper functions untuk device tracking
+function getDeviceId() {
+  let deviceId = localStorage.getItem('device_id')
+  if (!deviceId) {
+    deviceId = 'device_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now()
+    localStorage.setItem('device_id', deviceId)
+  }
+  return deviceId
+}
+
+function getDeviceName() {
+  const ua = navigator.userAgent
+  if (ua.includes('Windows')) return 'Windows PC'
+  if (ua.includes('Mac')) return 'Mac'
+  if (ua.includes('iPhone')) return 'iPhone'
+  if (ua.includes('iPad')) return 'iPad'
+  if (ua.includes('Android')) return 'Android Phone'
+  return 'Unknown Device'
+}

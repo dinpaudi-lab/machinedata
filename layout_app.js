@@ -169,11 +169,16 @@ async function addHistory(entry) {
     }
   }
   
-  // Try to sync to cloud
-  if (typeof saveMachineToCloud !== 'undefined' && isCloudSyncEnabled) {
+  // Save directly to Supabase cloud
+  if (typeof saveHistoryToCloud !== 'undefined' && isCloudAvailable) {
     try {
-      const userId = localStorage.getItem('currentUserId') || 'unknown'
-      // The history will be saved via saveMachineToCloud which handles the history table
+      await saveHistoryToCloud({
+        type: entry.type || 'general',
+        action: entry.action || 'update',
+        details: entry,
+        device_id: entry.device_id,
+        device_name: entry.device_name
+      })
     } catch (e) {
       console.warn('Cloud history sync failed:', e)
     }
