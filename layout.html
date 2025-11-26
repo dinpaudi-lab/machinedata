@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Layout Mesin Rapier — Dashboard</title>
+  <link rel="stylesheet" href="layout_styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div></div>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo" style="display:flex;align-items:center;"><img id="site-logo" src="https://cdnb.uns.ac.id/cdc/image/2022/03/tE6YvomIvLcTJTHcC8GB2acYc5Xv9W60.png" alt="Logo" style="width:50px;height:50px;border-radius:10px;object-fit:contain;box-shadow:0 5px 15px rgba(0,0,0,0.4);transition:transform .4s ease,box-shadow .3s ease;animation:logoPulse 4s ease-in-out infinite" /></div>
+        <div>
+          <div id="greeting" class="greeting">Selamat Pagi</div>
+          <div class="subtitle">Data Layout Mesin Rapier</div>
+        </div>
+      </div>
+      <div class="meta">
+        <div id="clock" class="clock" aria-live="polite">--:--:--</div>
+        <div id="date" class="date" aria-hidden="true"></div>
+        <div class="meta-text">Delta Merlin Dunia Tekstil VIII</div>
+        <button id="logout-btn" class="chip" title="Logout" style="padding:6px 12px;font-size:12px;background:rgba(239,68,68,0.1);color:#fca5a5;border:1px solid rgba(239,68,68,0.3);cursor:pointer;margin-left:12px">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="controls">
+      <div class="right">
+        <label style="display:flex;gap:8px;align-items:center;">
+          Pencarian mesin #: 
+          <input id="search" placeholder="Cari nomor mesin" style="flex:1;max-width:200px"/>
+          <button id="clear-search" class="chip" title="Reset pencarian" style="padding:6px 12px;font-size:12px">Reset</button>
+        </label>
+        <div id="search-result" style="display:none;margin-top:12px;padding:12px;background:rgba(255,209,102,0.1);border:1px solid rgba(255,209,102,0.3);border-radius:8px;font-size:13px">
+          <div style="font-weight:600;margin-bottom:6px">Hasil Pencarian:</div>
+          <div id="search-result-text"></div>
+        </div>
+        <span id="search-counter" style="color:#9aa6c0;font-size:13px;margin:0 8px"></span>
+        <button id="export-excel" class="chip" title="Export layout ke Excel">Export Excel</button>
+        <button id="sync-history-btn" class="chip" title="Sinkronisasi history lintas perangkat" style="padding:6px 12px;font-size:12px;background:rgba(34,197,94,0.1);color:#86efac;border:1px solid rgba(34,197,94,0.3);cursor:pointer">📱 Sync History</button>
+        <button id="clear-storage" class="chip" title="Bersihkan data tersimpan (untuk debug)" style="padding:6px 12px;font-size:12px;background:rgba(255,110,199,0.1)">🗑 Clear Data</button>
+      </div>
+    </section>
+
+    <section class="main-area">
+      <aside class="panel left-panel">
+        <h3>Keterangan</h3>
+        <div id="legend" class="legend"></div>
+        <hr />
+        <h4>Pengelolaan Konstruksi</h4>
+        <div class="panel" style="padding:8px;">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+            <input id="new-const-name" placeholder="Nama konstruksi baru" style="flex:1;padding:6px;border-radius:6px;border:none;background:rgba(255,255,255,0.02);color:#fff">
+            <input id="new-const-color" type="color" value="#ff6ec7" title="Pilih warna" style="width:42px;height:36px;border-radius:6px;border:none">
+            <button id="add-const" class="chip">Tambah</button>
+          </div>
+
+          <div id="construct-list" style="display:flex;flex-direction:column;gap:6px;max-height:220px;overflow:auto">
+            <!-- contoh item (javascript akan mengisi) -->
+          </div>
+        </div>
+        <hr />
+        <h4>Kelola Konstruksi</h4>
+        <div class="construct-list"></div>
+        <hr />
+        <h4>Grafik Konstruksi</h4>
+        <canvas id="barChart" height="160"></canvas>
+      </aside>
+
+      <section class="grid-panel">
+        <div class="grid" id="machine-grid"></div>
+      </section>
+    </section>
+
+    <section class="history panel">
+      <h3>History Edit</h3>
+      <div id="history-list" class="history-list"></div>
+    </section>
+  </main>
+
+  <!-- Edit modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <h3>Edit Mesin <span id="modal-machine-id"></span></h3>
+      <label>Kontruksi:
+        <select id="modal-construct"></select>
+      </label>
+      <label>Editor:
+        <input id="modal-editor" placeholder="Nama editor" />
+      </label>
+      <div class="actions">
+        <button id="save-edit" class="btn primary">Simpan</button>
+        <button id="close-modal" class="btn">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Konstruksi modal -->
+  <div id="const-modal" class="modal hidden">
+    <div class="modal-card">
+      <h3>Edit Konstruksi: <span id="const-modal-name"></span></h3>
+      <label>Nama:
+        <input id="const-modal-name-input" placeholder="Nama konstruksi" />
+      </label>
+      <label style="display:flex;gap:8px;align-items:center;">
+        <span>Warna:</span>
+        <input id="const-modal-color" type="color" title="Pilih warna" style="width:50px;height:40px;border-radius:6px;border:none;cursor:pointer">
+      </label>
+      <div class="actions">
+        <button id="save-const" class="btn primary">Simpan</button>
+        <button id="close-const-modal" class="btn">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">© 2025 — Dibuat oleh Didin</footer>
+
+  <!-- Supabase Sync -->
+  <script src="supabase_sync.js"></script>
+  
+  <!-- History Cross-Device Sync -->
+  <script src="history_sync.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="layout_app.js"></script>
+</body>
+</html>

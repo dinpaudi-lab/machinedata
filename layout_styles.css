@@ -1,0 +1,144 @@
+:root{--bg:#0b1020;--card:#0d1524;--muted:#9aa6c0;--accent1:#ff6ec7;--accent2:#7c5cff}
+*{box-sizing:border-box;font-family:Poppins,Segoe UI,Roboto,Arial,sans-serif}
+body{margin:0;background:linear-gradient(180deg,#071026 0%, #071428 60%);color:#eaf0ff}
+.animated-bg{
+	background: linear-gradient(90deg, rgba(255,110,199,0.06), rgba(124,92,255,0.04));
+	backdrop-filter: blur(6px);
+}
+.wrap{max-width:1200px;margin:0 auto;padding:18px}
+.bg-blobs{position:fixed;inset:0;pointer-events:none;z-index:0}
+.blob{position:absolute;border-radius:50%;filter:blur(110px);opacity:0.85;transform-origin:center}
+.b1{width:640px;height:640px;left:-8%;top:-8%;background:radial-gradient(circle at 20% 20%,var(--accent1),transparent 40%);animation:float1 10s ease-in-out infinite}
+.b2{width:520px;height:520px;right:-6%;top:12%;background:radial-gradient(circle at 80% 80%,var(--accent2),transparent 40%);animation:float2 12s ease-in-out infinite}
+
+@keyframes float1{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(6deg)}100%{transform:translateY(0) rotate(0deg)}}
+@keyframes float2{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(16px) rotate(-6deg)}100%{transform:translateY(0) rotate(0deg)}}
+.top{position:relative;z-index:2}
+.top .wrap{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{font-size:28px}
+.logo img{width:56px;height:56px;border-radius:10px;object-fit:contain;box-shadow:0 6px 18px rgba(0,0,0,0.45);transition:transform .4s ease,box-shadow .3s ease;animation:logoPulse 4s ease-in-out infinite}
+
+@keyframes logoPulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+.greeting{font-weight:700;font-size:20px}
+.subtitle{color:var(--muted)}
+.meta{color:var(--muted);display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.clock{font-weight:700;font-size:14px;padding:6px 10px;border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));color:#fff;box-shadow:0 6px 18px rgba(2,6,23,0.45)}
+.date{font-size:12px;color:var(--muted);opacity:0.95}
+.meta-text{opacity:0.9;font-size:13px}
+.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px;align-items:center;flex-wrap:wrap}
+.controls input{padding:8px;border-radius:8px;border:none;background:rgba(255,255,255,0.03);color:#fff;transition:all .2s ease}
+.controls input:hover{background:rgba(255,255,255,0.05)}
+.controls input:focus{background:rgba(255,255,255,0.08);outline:none}
+.chip{background:linear-gradient(90deg,var(--accent1),var(--accent2));border:none;color:#081026;padding:8px 10px;border-radius:999px;cursor:pointer}
+.chip{box-shadow:0 6px 18px rgba(124,92,255,0.12);transition:transform .18s ease,box-shadow .18s ease}
+.chip:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(124,92,255,0.18)}
+.main-area{display:flex;gap:12px;margin-top:12px}
+.left-panel{width:320px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px;border-radius:12px}
+.grid-panel{flex:1;overflow:auto}
+.grid{display:grid;grid-template-columns:repeat(16,1fr);gap:6px;grid-auto-flow:dense}
+.machine-box{background:#081026;padding:8px;border-radius:8px;text-align:center;color:#fff;font-weight:700;cursor:pointer;border:1px solid rgba(255,255,255,0.04);transition:transform .18s ease,box-shadow .18s ease,opacity .12s;position:relative}
+.machine-box.small{font-size:12px;padding:6px}
+.machine-box:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 18px 40px rgba(2,6,23,0.6);opacity:1;border-color:rgba(255,255,255,0.08)}
+.machine-box::after{content:'';position:absolute;pointer-events:none;inset:0;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent);mix-blend-mode:overlay;opacity:0}
+.machine-box:hover::after{opacity:0.18}
+.legend{display:flex;flex-direction:column;gap:6px}
+.legend-item{display:flex;gap:8px;align-items:center}
+.legend-color{width:20px;height:14px;border-radius:4px}
+.construct-list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.construct-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.construct-row{padding:6px;border-radius:8px;transition:background .18s ease,transform .12s ease}
+.construct-row:hover{background:rgba(255,255,255,0.02);transform:translateX(4px)}
+.construct-left{display:flex;align-items:center;gap:8px}
+.construct-name{color:#eaf0ff}
+.construct-actions{display:flex;gap:6px}
+.edit-const, .small-btn{padding:6px 8px;border-radius:8px;border:none;cursor:pointer;background:rgba(255,255,255,0.03);color:#fff;font-size:11px}
+.edit-const{padding:4px 8px;font-size:14px}
+.edit-const, .small-btn{transition:transform .12s ease,background .12s ease}
+.edit-const:hover, .small-btn:hover{transform:translateY(-3px);background:rgba(255,255,255,0.06)}
+.panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;margin-top:12px}
+.history-list{max-height:220px;overflow:auto}
+.history-row{padding:8px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:8px}
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:999}
+.modal.hidden{display:none}
+.modal-card{background:#071022;padding:14px;border-radius:10px;width:360px}
+.modal-card label{display:block;margin-bottom:8px}
+.modal-card input, .modal-card select{width:100%;padding:8px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff}
+.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.btn{padding:8px 10px;border-radius:8px;border:none;cursor:pointer}
+.btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#081026}
+.footer{text-align:center;color:var(--muted);margin-top:18px;padding:12px}
+/* make the content feel a little deeper */
+.wrap{position:relative;z-index:3}
+/* responsive tweaks */
+@media (hover:none){ .machine:hover{transform:none;box-shadow:none} .chip:hover{transform:none} }
+@media(max-width:900px){.grid{grid-template-columns:repeat(8,1fr)}.left-panel{display:none}}
+
+/* Toast notifications */
+.toast-root{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:1200}
+.toast{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#071026;padding:10px 14px;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,0.6);font-weight:600;transform:translateY(12px);opacity:0;animation:toastIn .36s forwards}
+.toast.success{background:linear-gradient(90deg,#34d399,#60a5fa);color:#061221}
+.toast.warn{background:linear-gradient(90deg,#ffd166,#f97316);color:#081026}
+@keyframes toastIn{to{transform:translateY(0);opacity:1}}
+
+/* === ELEGANT ANIMATIONS === */
+
+/* Machine grid stagger animation */
+.machine-box{position:relative;animation:gridEntrance .5s ease-out forwards;opacity:0}
+@keyframes gridEntrance{from{opacity:0;transform:scale(0.85) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+/* Stagger effect for each machine (nth-child) */
+.machine-box:nth-child(1){animation-delay:0ms}
+.machine-box:nth-child(2){animation-delay:15ms}
+.machine-box:nth-child(3){animation-delay:30ms}
+.machine-box:nth-child(4){animation-delay:45ms}
+.machine-box:nth-child(5){animation-delay:60ms}
+.machine-box:nth-child(n+6){animation-delay:75ms}
+
+/* Smooth construction list item slide-in */
+.construct-row{animation:slideInLeft .4s ease-out forwards;opacity:0}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+.construct-row:nth-child(1){animation-delay:0ms}
+.construct-row:nth-child(2){animation-delay:80ms}
+.construct-row:nth-child(3){animation-delay:160ms}
+.construct-row:nth-child(n+4){animation-delay:240ms}
+
+/* Legend items fade-in */
+.legend-item{animation:fadeIn .35s ease-out forwards;opacity:0}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.legend-item:nth-child(1){animation-delay:0ms}
+.legend-item:nth-child(2){animation-delay:60ms}
+.legend-item:nth-child(3){animation-delay:120ms}
+.legend-item:nth-child(n+4){animation-delay:180ms}
+
+/* Modal smooth entrance & exit */
+.modal:not(.hidden){animation:modalIn .38s cubic-bezier(0.34,1.56,0.64,1) forwards}
+.modal.hidden{animation:modalOut .24s ease-in forwards}
+@keyframes modalIn{from{opacity:0;backdrop-filter:blur(0px)}to{opacity:1;backdrop-filter:blur(6px)}}
+@keyframes modalOut{to{opacity:0;backdrop-filter:blur(0px)}}
+
+.modal-card{animation:cardBounce .38s cubic-bezier(0.34,1.56,0.64,1) forwards;transform:scale(0.9)}
+.modal:not(.hidden) .modal-card{animation:cardBounce .38s cubic-bezier(0.34,1.56,0.64,1) forwards;transform:scale(1)}
+@keyframes cardBounce{0%{transform:scale(0.9) translateY(-12px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+
+/* Smooth button interactions */
+.chip, .btn, .small-btn{transition:all .2s cubic-bezier(0.34,1.56,0.64,1)}
+.chip:active{transform:scale(0.96)}
+.btn:active{transform:scale(0.95)}
+
+/* Input field focus animation */
+input:focus, select:focus{outline:none;background:rgba(255,255,255,0.04)!important;box-shadow:0 0 0 2px rgba(255,110,199,0.2),inset 0 0 0 1px rgba(255,255,255,0.1);animation:inputFocus .3s ease-out}
+@keyframes inputFocus{from{box-shadow:0 0 0 0 rgba(255,110,199,0.2),inset 0 0 0 0 rgba(255,255,255,0.1)}to{box-shadow:0 0 0 2px rgba(255,110,199,0.2),inset 0 0 0 1px rgba(255,255,255,0.1)}}
+
+/* Machine box ripple effect on click */
+.machine-box::before{content:'';position:absolute;inset:0;border-radius:8px;background:radial-gradient(circle,rgba(255,255,255,0.2) 0%,transparent 70%);opacity:0;pointer-events:none}
+.machine-box:active::before{animation:ripple .6s ease-out}
+@keyframes ripple{0%{opacity:1;transform:scale(0)}to{opacity:0;transform:scale(2)}}
+
+/* History row pulse on add */
+.history-row:first-child{animation:historyPulse .5s ease-out}
+@keyframes historyPulse{0%{background:rgba(255,110,199,0.15);transform:translateX(4px)}50%{background:rgba(255,110,199,0.08)}to{background:rgba(255,255,255,0.02);transform:translateX(0)}}
+
+/* Chart fade-in */
+#barChart{animation:chartFadeIn .6s ease-out forwards;opacity:0}
+@keyframes chartFadeIn{to{opacity:1}}
